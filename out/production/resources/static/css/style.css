@@ -1,0 +1,10 @@
+.signup-form label{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+}
+.signup-form span{
+    text-align:right;
+    font-size:0.9em;
+    color:red;
+}
