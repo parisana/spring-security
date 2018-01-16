@@ -36,4 +36,11 @@ public class Message {
     @OneToOne
     @NotNull
     private User from= new User();
+
+    public Message(@NotEmpty(message = "Message is required") String text, String summary,@NotNull User to, @NotNull User from) {
+        this.text = text;
+        this.summary = summary;
+        this.to = to;
+        this.from = from;
+    }
 }

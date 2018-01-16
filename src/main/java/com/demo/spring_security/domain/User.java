@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +21,8 @@ public class User implements Serializable{
     private static final long serialVersionUID = 2738859149330833739L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NotNull
     private Long id;
 
     @NotEmpty(message = "First name is required.")
@@ -38,7 +40,7 @@ public class User implements Serializable{
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<UserAuthority> authorities;
+    private Set<UserAuthority> authorities= new HashSet<>();
 
     @NotNull
     private boolean accountNonExpired;
@@ -53,6 +55,10 @@ public class User implements Serializable{
     private boolean credentialsNonExpired;
 
     public User() {
+        setAccountDefaults();
+    }
+
+    private void setAccountDefaults() {
         this.accountNonExpired= true;
         this.enabled= true;
         this.accountNonLocked= true;
@@ -65,15 +71,15 @@ public class User implements Serializable{
         this.lastName = user.lastName;
         this.email = user.email;
         this.password = user.password;
-        this.authorities = Collections.emptySet();
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email,
+                String password) {
+        setAccountDefaults();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.authorities = Collections.emptySet();
     }
 
     public Long getId() {
@@ -117,7 +123,7 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Set<UserAuthority> getAuthorities() {
         return authorities;
     }

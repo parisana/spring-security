@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author Parisana
  */
-public interface UserAuthorityRepo extends JpaRepository<UserAuthority, Long> {
+public interface UserAuthorityRepo extends JpaRepository<UserAuthority, Integer> {
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Parisana
  */
 @Entity
-public class UserAuthority implements Serializable {
+public class UserAuthority{
     private static final long serialVersionUID = 2738828949330833739L;
 
     @Id
@@ -20,13 +20,17 @@ public class UserAuthority implements Serializable {
     private Long id;
 
     @ManyToOne
-    @NotNull
     private User user;
 
     @NotEmpty(message = "Authority is required.")
     private String authority;
 
     public UserAuthority() {
+    }
+
+    public UserAuthority(@NotNull User user, @NotEmpty(message = "Authority is required.") String authority) {
+        this.user = user;
+        this.authority = authority;
     }
 
     public Long getId() {
